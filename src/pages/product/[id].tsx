@@ -3,7 +3,6 @@ import { Layout } from "@/components/Layout";
 import NotFound from "@/components/NotFound";
 import {
   Box,
-  Button,
   Center,
   Container,
   Flex,
@@ -17,7 +16,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Prisma, Product } from "@prisma/client";
+import { Product } from "@prisma/client";
 import { useRouter } from "next/router";
 import useSwr from "swr";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());

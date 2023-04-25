@@ -137,6 +137,120 @@ const NavLink = ({ children, href }: NavProps) => (
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: session, status } = useSession();
+  let admins = ["shreyask3004@gmail.com", "chinmaya.dhiman@gmail.com"];
+
+  let actions = null;
+
+  if (session?.user?.email) {
+    if (admins.includes(session.user.email)) {
+      actions = (
+        <Flex alignItems={"center"}>
+          <Link href="/dashboard">
+            <Button
+              variant={"solid"}
+              colorScheme={"teal"}
+              size={"sm"}
+              mr={4}
+              // onClick={() => signOut()}
+            >
+              <FontAwesomeIcon icon={faChartSimple} />
+              <Text ml={2}>Dashboard</Text>
+            </Button>
+          </Link>
+          <Menu>
+            <MenuButton
+              as={Button}
+              rounded={"full"}
+              variant={"link"}
+              cursor={"pointer"}
+              minW={0}
+            >
+              {session.user.image ? (
+                <Avatar size={"sm"} src={session.user.image} />
+              ) : (
+                <Avatar
+                  size={"sm"}
+                  src={
+                    "https://commons.wikimedia.org/wiki/File:No_avatar.png#/media/File:No_avatar.png"
+                  }
+                  border="2px"
+                  borderColor="black"
+                />
+              )}
+            </MenuButton>
+            <MenuList>
+              <Link href="/uploadProduct">
+                <MenuItem icon={<AddIcon />}>Add Product</MenuItem>
+              </Link>
+              <Link href="/uploadFaq">
+                <MenuItem icon={<AddIcon />}>Add FAQ</MenuItem>
+              </Link>
+              <MenuDivider />
+              <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      );
+    } else {
+      actions = (
+        <Menu>
+          <MenuButton
+            as={Button}
+            rounded={"full"}
+            variant={"link"}
+            cursor={"pointer"}
+            minW={0}
+          >
+            {session.user.image ? (
+              <Avatar size={"sm"} src={session.user.image} />
+            ) : (
+              <Avatar
+                size={"sm"}
+                src={
+                  "https://commons.wikimedia.org/wiki/File:No_avatar.png#/media/File:No_avatar.png"
+                }
+                border="2px"
+                borderColor="black"
+              />
+            )}
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
+          </MenuList>
+        </Menu>
+      );
+    }
+  } else {
+    if (session?.user) {
+      actions = (
+        <Menu>
+          <MenuButton
+            as={Button}
+            rounded={"full"}
+            variant={"link"}
+            cursor={"pointer"}
+            minW={0}
+          >
+            {session.user.image ? (
+              <Avatar size={"sm"} src={session.user.image} />
+            ) : (
+              <Avatar
+                size={"sm"}
+                src={
+                  "https://commons.wikimedia.org/wiki/File:No_avatar.png#/media/File:No_avatar.png"
+                }
+                border="2px"
+                borderColor="black"
+              />
+            )}
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
+          </MenuList>
+        </Menu>
+      );
+    }
+  }
 
   return (
     <>
@@ -179,52 +293,7 @@ export default function NavBar() {
           </HStack>
 
           {session?.user ? (
-            <Flex alignItems={"center"}>
-              <Link href="/dashboard">
-                <Button
-                  variant={"solid"}
-                  colorScheme={"teal"}
-                  size={"sm"}
-                  mr={4}
-                  // onClick={() => signOut()}
-                >
-                  <FontAwesomeIcon icon={faChartSimple} />
-                  <Text ml={2}>Dashboard</Text>
-                </Button>
-              </Link>
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rounded={"full"}
-                  variant={"link"}
-                  cursor={"pointer"}
-                  minW={0}
-                >
-                  {session.user.image ? (
-                    <Avatar size={"sm"} src={session.user.image} />
-                  ) : (
-                    <Avatar
-                      size={"sm"}
-                      src={
-                        "https://commons.wikimedia.org/wiki/File:No_avatar.png#/media/File:No_avatar.png"
-                      }
-                      border="2px"
-                      borderColor="black"
-                    />
-                  )}
-                </MenuButton>
-                <MenuList>
-                  <Link href="/uploadProduct">
-                    <MenuItem icon={<AddIcon />}>Add Product</MenuItem>
-                  </Link>
-                  <Link href="/uploadFaq">
-                    <MenuItem icon={<AddIcon />}>Add FAQ</MenuItem>
-                  </Link>
-                  <MenuDivider />
-                  <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
-                </MenuList>
-              </Menu>
-            </Flex>
+            actions
           ) : (
             <>
               <Button
