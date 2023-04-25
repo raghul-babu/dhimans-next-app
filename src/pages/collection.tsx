@@ -38,7 +38,7 @@ export default function Collection() {
 
   if (isLoading)
     return (
-      <Center h="100%" w={"100vw"}>
+      <Center h="100vh" w={"100vw"}>
         <Spinner
           thickness="4px"
           speed="0.65s"
@@ -54,6 +54,9 @@ export default function Collection() {
 
   return (
     <Layout>
+      <Heading mx="auto" mb={4} textAlign={"center"}>
+        Collections
+      </Heading>
       <SimpleGrid spacing={4} minChildWidth="300px" spacingY={6}>
         {data.map((product) => (
           <Card maxW="400" key={product.id}>
@@ -69,11 +72,11 @@ export default function Collection() {
                     {product.title}
                   </Heading>
                 </NextLink>
-                <Text>
+                {/* <Text>
                   {product.description.split(" ").splice(0, 15).join(" ")}...
-                </Text>
-                <Text color="blue.600" fontSize="2xl">
-                  $450
+                </Text> */}
+                <Text color="blue.600">
+                  ExWork Price: ₹{product.exworkPrice}
                 </Text>
               </Stack>
             </CardBody>
