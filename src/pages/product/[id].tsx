@@ -4,12 +4,14 @@ import NotFound from "@/components/NotFound";
 import {
   Box,
   Button,
+  Center,
   Container,
   Flex,
   Heading,
   List,
   ListItem,
   SimpleGrid,
+  Spinner,
   Stack,
   StackDivider,
   Text,
@@ -29,7 +31,18 @@ export default function ProductPage() {
   );
 
   if (error) return <NotFound />;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <Center h="100vh" w={"100vw"}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
   if (!data) return null;
 
   return (
@@ -76,10 +89,9 @@ export default function ProductPage() {
             >
               <VStack spacing={{ base: 4, sm: 6 }}>
                 <Text color={"gray.500"} fontSize={"2xl"} fontWeight={"300"}>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore
+                  {data.description}
                 </Text>
-                <Text fontSize={"lg"}>{data.description}</Text>
+                {/* <Text fontSize={"lg"}>{data.description}</Text> */}
               </VStack>
               <Box>
                 <Text
