@@ -16,15 +16,17 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Product } from "@prisma/client";
+import { Category, Product } from "@prisma/client";
 import { useRouter } from "next/router";
 import useSwr from "swr";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+type ProductWithCategory = Product & { categories: Category[] };
+
 export default function ProductPage() {
   const { query } = useRouter();
 
-  const { data, error, isLoading } = useSwr<Product>(
+  const { data, error, isLoading } = useSwr<ProductWithCategory>(
     query.id ? `/api/product/${query.id}` : null,
     fetcher
   );
@@ -138,7 +140,9 @@ export default function ProductPage() {
                     <Text as={"span"} fontWeight={"bold"}>
                       Category:
                     </Text>{" "}
-                    {/* {data.categories} */}
+                    {data.categories.map((c, i, { length }) =>
+                      length - 1 === i ? c.name : c.name + ", "
+                    )}
                   </ListItem>
                 </List>
               </Box>

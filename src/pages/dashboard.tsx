@@ -153,7 +153,6 @@ export default function Dashboard() {
                     <Thead>
                       <Tr>
                         <Th>Title</Th>
-                        <Th>Description</Th>
                         <Th>ExWork Price</Th>
                         <Th>FOB Price</Th>
                         <Th>Image</Th>
@@ -163,7 +162,6 @@ export default function Dashboard() {
                       {products.map((product) => (
                         <Tr key={product.id}>
                           <Td>{product.title}</Td>
-                          <Td>{product.description.slice(0, 25)}</Td>
                           <Td>₹ {product.exworkPrice}</Td>
                           <Td>₹ {product.fobPrice}</Td>
                           <Td>
@@ -174,6 +172,7 @@ export default function Dashboard() {
                                   width={50}
                                   height={50}
                                   alt={product.title}
+                                  cursor={"pointer"}
                                 />
                               </PopoverTrigger>
                               <PopoverContent>

@@ -17,6 +17,14 @@ export default async function handler(
       include: { categories: true },
     });
 
+    if (r?.categoryIDs) {
+      const cats = await prisma.category.findMany({
+        where: { id: { in: r.categoryIDs } },
+      });
+      // const catList = cats.map((c) => c.name);
+      r.categories = cats;
+    }
+
     res.status(200).json(r);
   } else if (method === "DELETE") {
     const r = await prisma.product.findUnique({ where: { id } });
