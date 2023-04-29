@@ -12,6 +12,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KTS8W87');`}
         </Script>
+        <meta property="og:site_name" content="Dhiman's" />
+        <meta property="og:title" content="Dhiman's" />
+        <meta property="og:url" content="https://www.dhiman.org" />
+        <meta property="og:type" content="website" />
       </Head>
       <body>
         <noscript>
