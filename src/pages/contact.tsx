@@ -16,6 +16,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import { BsInstagram, BsLinkedin, BsWhatsapp } from "react-icons/bs";
 import { MdEmail, MdFacebook, MdLocationOn, MdPhone } from "react-icons/md";
 import * as Yup from "yup";
@@ -26,6 +27,10 @@ const ContactSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
+  phone: Yup.string()
+    .min(10, "Too Short!")
+    .max(12, "Too Long!")
+    .required("Required"),
   message: Yup.string()
     .min(2, "Too Short!")
     .max(500, "Too Long!")
@@ -34,6 +39,7 @@ const ContactSchema = Yup.object().shape({
 
 export default function Contact() {
   const toast = useToast();
+  const router = useRouter();
   return (
     <Layout>
       <Container
@@ -77,7 +83,7 @@ export default function Contact() {
                           _hover={{ border: "2px solid #1C6FEB" }}
                           leftIcon={<MdPhone color="#1970F1" size="20px" />}
                         >
-                          +91-9405823171
+                          +91 9405823171
                         </Button>
                         <Button
                           size="md"
@@ -88,7 +94,7 @@ export default function Contact() {
                           _hover={{ border: "2px solid #1C6FEB" }}
                           leftIcon={<MdEmail color="#1970F1" size="20px" />}
                         >
-                          chinmaya.dhiman@gmail.com
+                          explore@dhiman.org
                         </Button>
                         <Button
                           size="md"
@@ -156,9 +162,14 @@ export default function Contact() {
                 </WrapItem>
                 <WrapItem>
                   <Box bg="white" borderRadius="lg">
-                    <Box m={8} color="#0B0E3F">
+                    <Box p={8} color="#0B0E3F">
                       <Formik
-                        initialValues={{ name: "", email: "", message: "" }}
+                        initialValues={{
+                          name: "",
+                          email: "",
+                          phone: "",
+                          message: "",
+                        }}
                         validationSchema={ContactSchema}
                         onSubmit={async (values, { resetForm }) => {
                           //   console.log({ ...values });
@@ -181,16 +192,18 @@ export default function Contact() {
                             throw new Error("Failed to save form data");
                           }
 
-                          toast({
-                            title: "Message sent!",
-                            description:
-                              "Thanks for contacting us. We shall get back to you very soon.",
-                            status: "success",
-                            duration: 9000,
-                            isClosable: true,
-                          });
-                          console.log("Form data saved successfully");
+                          // toast({
+                          //   title: "Message sent!",
+                          //   description:
+                          //     "Thanks for contacting us. We shall get back to you very soon.",
+                          //   status: "success",
+                          //   duration: 9000,
+                          //   isClosable: true,
+                          // });
+                          // console.log("Form data saved successfully");
                           resetForm();
+
+                          router.push("/thankyou");
                         }}
                       >
                         {({ isSubmitting }) => (
@@ -206,6 +219,14 @@ export default function Contact() {
                                   name="email"
                                   placeholder="jane@mtrader.com"
                                   label="Email"
+                                />
+                              </Box>
+                              <Box mt={4}>
+                                <MyTextInput
+                                  name="phone"
+                                  placeholder="+919876654431"
+                                  label="Contact Number"
+                                  type="number"
                                 />
                               </Box>
                               <Box mt={4}>

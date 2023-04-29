@@ -89,6 +89,7 @@ export default function Dashboard() {
                     <Tr>
                       <Th>Name</Th>
                       <Th>Email</Th>
+                      <Th>Contact</Th>
                       <Th>Message</Th>
                       <Th>Time</Th>
                     </Tr>
@@ -98,8 +99,9 @@ export default function Dashboard() {
                       <Tr key={lead.id}>
                         <Td>{lead.name}</Td>
                         <Td>{lead.email}</Td>
+                        <Td>{lead.phone}</Td>
                         <Td>{lead.message}</Td>
-                        <Td>{lead.updatedAt.toLocaleString("en-IN")}</Td>
+                        <Td>{formatDate(lead.updatedAt)}</Td>
                       </Tr>
                     ))}
                   </Tbody>
@@ -220,4 +222,14 @@ export default function Dashboard() {
   }
 
   return <Layout>{body}</Layout>;
+}
+
+function formatDate(date: Date) {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour12: true,
+    dateStyle: "short",
+    timeStyle: "short",
+  });
 }

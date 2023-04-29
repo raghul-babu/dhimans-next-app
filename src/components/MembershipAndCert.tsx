@@ -33,8 +33,9 @@ export default function MembershipAndCert() {
             x: [0, -1200, 0],
           }}
           transition={{
-            duration: 100,
+            duration: 60,
             repeat: Infinity,
+            ease: "linear",
           }}
           className={styles.innercarousel}
         >

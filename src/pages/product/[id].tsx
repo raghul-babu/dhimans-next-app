@@ -1,4 +1,5 @@
 import ImageSlider from "@/components/ImageSlider";
+import ImageSwiper from "@/components/ImageSwiper";
 import { Layout } from "@/components/Layout";
 import NotFound from "@/components/NotFound";
 import {
@@ -54,7 +55,7 @@ export default function ProductPage() {
           spacing={{ base: 8, md: 10 }}
           // py={{ base: 18, md: 24 }}
         >
-          <Flex>
+          <Box>
             {/* <Image
               rounded={"md"}
               alt={"product image"}
@@ -64,8 +65,9 @@ export default function ProductPage() {
               w={"100%"}
               h={{ base: "100%", sm: "400px", lg: "500px" }}
             /> */}
-            <ImageSlider images={data.images} />
-          </Flex>
+            {/* <ImageSlider images={data.images} /> */}
+            <ImageSwiper images={data.images} />
+          </Box>
           <Stack spacing={{ base: 6, md: 10 }}>
             <Box as={"header"}>
               <Heading

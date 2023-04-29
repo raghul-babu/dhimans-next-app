@@ -90,7 +90,12 @@ export default function Home() {
           <Service />
           <MembershipAndCert />
           <Center mt={8}>
-            <Flex alignItems={"center"} gap={4} my={6}>
+            <Flex
+              alignItems={"center"}
+              gap={4}
+              my={6}
+              direction={{ base: "column", sm: "row" }}
+            >
               <Link href={"/collection"}>
                 <Button variant={"solid"} size={"lg"}>
                   Browse our collections &nbsp; <BsArrowUpRightCircleFill />

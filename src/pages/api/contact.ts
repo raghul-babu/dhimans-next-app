@@ -9,14 +9,14 @@ export default async function handler(
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { name, email, message } = req.body;
-
+  const { name, email, phone, message } = req.body;
   try {
     const lead = await prisma.contactLead.create({
-      data: { name, email, message },
+      data: { name, email, phone: phone.toString(), message },
     });
     res.status(200).json(lead);
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       message: "This is an error!",
     });
